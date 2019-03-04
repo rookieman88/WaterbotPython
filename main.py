@@ -17,7 +17,7 @@ def get_prefix(bot, msg):
 
 
 bot = commands.Bot(command_prefix=get_prefix,description='A music bot fro discord Kurusaki')
-YOUTUBE_API='YOUR YOUTUBE API'
+YOUTUBE_API='AIzaSyAiDtG6wLHkJV7DTme5r8bokspJan2JJ6w'
 bot.remove_command('help')
 
 from discord import opus
