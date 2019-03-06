@@ -142,7 +142,7 @@ async def 플레이(con, *, url):
             if player_status[con.message.server.id] == True:
                 song_names[con.message.server.id].append(url)
                 r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key={}'.format(url,YOUTUBE_API)).json()
-                await bot.send_message(con.message.channel, "** `{}` 가 플레이됩니다!**".format(r['items'][0]['snippet']['title']))
+                await bot.send_message(con.message.channel, "** `{}` 가 재생목록에 !**".format(r['items'][0]['snippet']['title']))
 
             if player_status[con.message.server.id] == False:
                 player_status[con.message.server.id] = True
