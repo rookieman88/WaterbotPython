@@ -106,13 +106,13 @@ async def queue_songs(con, skip, clear):
             r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key={}'.format(song_names[con.message.server.id][0],YOUTUBE_API)).json()
             pack = discord.Embed(title=r['items'][0]['snippet']['title'],url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId']))
             pack.set_thumbnail(url=r['items'][0]['snippet']['thumbnails']['default']['url'])
-            pack.add_field(name="Requested by:", value=con.message.author.name)
+            pack.add_field(name="신청한 사람:", value=con.message.author.name)
             servers_songs[con.message.server.id] = await bot.voice_client_in(con.message.server).create_ytdl_player(song_names[con.message.server.id][0], ytdl_options=opts, after=lambda: bot.loop.create_task(after_song(con, False, False)))
             servers_songs[con.message.server.id].start()
             if servers_songs[con.message.server.id].duration != 0.0:
-                pack.add_field(name='Length', value=servers_songs[con.message.server.id].duration, inline=True)
+                pack.add_field(name='', value=servers_songs[con.message.server.id].duration, inline=True)
             if servers_songs[con.message.server.id].duration == 0.0:
-                pack.add_field(name='Length', value='Live!',inline=True)
+                pack.add_field(name='', value='Live!',inline=True)
             await bot.delete_message(now_playing[con.message.server.id])
             msg = await bot.send_message(con.message.channel, embed=pack)
             now_playing[con.message.server.id] = msg
