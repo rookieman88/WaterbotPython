@@ -154,11 +154,11 @@ async def 플레이(con, *, url):
                 pack = discord.Embed(title=r['items'][0]['snippet']['title'],url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId']))
                 pack.set_thumbnail(
                     url=r['items'][0]['snippet']['thumbnails']['default']['url'])
-                pack.add_field(name="Requested by:",value=con.message.author.name)
+                pack.add_field(name="신청한 사람:",value=con.message.author.name)
                 if servers_songs[con.message.server.id].duration != 0.0:
-                    pack.add_field(name='Length',value=servers_songs[con.message.server.id].duration,inline=True)
+                    pack.add_field(name='길이',value=servers_songs[con.message.server.id].duration,inline=True)
                 if servers_songs[con.message.server.id].duration == 0.0:
-                    pack.add_field(name='Length',value='Live!',inline=True)
+                    pack.add_field(name='',value='Live!',inline=True)
                 msg = await bot.send_message(con.message.channel, embed=pack)
                 now_playing[con.message.server.id] = msg
                 song_names[con.message.server.id].pop(0)
