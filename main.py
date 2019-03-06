@@ -4,11 +4,12 @@ import youtube_dl
 from discord.ext import commands
 from discord.utils import find
 import requests as rq
-
+thetoken = os.getenv("BOT_TOKEN")
 
 
 def get_prefix(bot, msg):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
+
 
     # Notice how you can use spaces in prefixes. Try to keep them simple though.
     prefixes = ['~']
@@ -266,4 +267,4 @@ async def 볼륨(con, vol: float):
         servers_songs[con.message.server.id].volume = vol
 
 
-bot.run('bot token')
+bot.run(thetoken)
