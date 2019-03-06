@@ -110,9 +110,9 @@ async def queue_songs(con, skip, clear):
             servers_songs[con.message.server.id] = await bot.voice_client_in(con.message.server).create_ytdl_player(song_names[con.message.server.id][0], ytdl_options=opts, after=lambda: bot.loop.create_task(after_song(con, False, False)))
             servers_songs[con.message.server.id].start()
             if servers_songs[con.message.server.id].duration != 0.0:
-                pack.add_field(name='', value=servers_songs[con.message.server.id].duration, inline=True)
+                pack.add_field(name='길이', value=servers_songs[con.message.server.id].duration, inline=True)
             if servers_songs[con.message.server.id].duration == 0.0:
-                pack.add_field(name='', value='Live!',inline=True)
+                pack.add_field(name='길이', value='Live!',inline=True)
             await bot.delete_message(now_playing[con.message.server.id])
             msg = await bot.send_message(con.message.channel, embed=pack)
             now_playing[con.message.server.id] = msg
