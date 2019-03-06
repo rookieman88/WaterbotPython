@@ -172,7 +172,7 @@ async def 스킵(con):
     # COMMAND NOT IN DM
     if con.message.channel.is_private == False:
         if servers_songs[con.message.server.id] == None or len(song_names[con.message.server.id]) == 0 or player_status[con.message.server.id] == False:
-            await bot.send_message(con.message.channel, "**스킵할 노래가 없어!**")
+            await bot.send_message(con.message.channel, "**스킵!**")
         if servers_songs[con.message.server.id] != None:
             bot.loop.create_task(queue_songs(con, True, False))
 
