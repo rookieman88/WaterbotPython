@@ -110,9 +110,9 @@ async def queue_songs(con, skip, clear):
             servers_songs[con.message.server.id] = await bot.voice_client_in(con.message.server).create_ytdl_player(song_names[con.message.server.id][0], ytdl_options=opts, after=lambda: bot.loop.create_task(after_song(con, False, False)))
             servers_songs[con.message.server.id].start()
             if servers_songs[con.message.server.id].duration != 0.0:
-                pack.add_field(name='길이', value=servers_songs[con.message.server.id].duration, inline=True)
+                pack.add_field(name='길이 (초)', value=servers_songs[con.message.server.id].duration, inline=True)
             if servers_songs[con.message.server.id].duration == 0.0:
-                pack.add_field(name='길이', value='Live!',inline=True)
+                pack.add_field(name='길이 (초)', value='Live!',inline=True)
             await bot.delete_message(now_playing[con.message.server.id])
             msg = await bot.send_message(con.message.channel, embed=pack)
             now_playing[con.message.server.id] = msg
@@ -142,7 +142,7 @@ async def 플레이(con, *, url):
             if player_status[con.message.server.id] == True:
                 song_names[con.message.server.id].append(url)
                 r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key={}'.format(url,YOUTUBE_API)).json()
-                await bot.send_message(con.message.channel, "** `{}` 가 재생목록에 !**".format(r['items'][0]['snippet']['title']))
+                await bot.send_message(con.message.channel, "** `{}` 가 재생목록에 추가되었습니다!**".format(r['items'][0]['snippet']['title']))
 
             if player_status[con.message.server.id] == False:
                 player_status[con.message.server.id] = True
@@ -156,7 +156,7 @@ async def 플레이(con, *, url):
                     url=r['items'][0]['snippet']['thumbnails']['default']['url'])
                 pack.add_field(name="신청한 사람:",value=con.message.author.name)
                 if servers_songs[con.message.server.id].duration != 0.0:
-                    pack.add_field(name='길이',value=servers_songs[con.message.server.id].duration,inline=True)
+                    pack.add_field(name='길이 (초)',value=servers_songs[con.message.server.id].duration,inline=True)
                 if servers_songs[con.message.server.id].duration == 0.0:
                     pack.add_field(name='',value='Live!',inline=True)
                 msg = await bot.send_message(con.message.channel, embed=pack)
@@ -172,7 +172,7 @@ async def 스킵(con):
     # COMMAND NOT IN DM
     if con.message.channel.is_private == False:
         if servers_songs[con.message.server.id] == None or len(song_names[con.message.server.id]) == 0 or player_status[con.message.server.id] == False:
-            await bot.send_message(con.message.channel, "**스킵!**")
+            await bot.send_message(con.message.channel, "**스킵됨!**")
         if servers_songs[con.message.server.id] != None:
             bot.loop.create_task(queue_songs(con, True, False))
 
@@ -245,7 +245,7 @@ async def 일시정지(con):
 
 
 @bot.command(pass_context=True)
-async def 반복(con):
+async def 재생(con):
     # COMMAND IS IN DM
     if con.message.channel.is_private == True:
         await bot.send_message(con.message.channel, "**음악 채널에 먼저 들어가시죠...**")
@@ -263,7 +263,7 @@ async def 반복(con):
 @bot.command(pass_context=True)
 async def 볼륨(con, vol: float):
     if player_status[con.message.server.id] == False:
-        await bot.send_message(con.message.channel, "아무 음악도 안틀어져있잖아!")
+        await bot.send_message(con.message.channel, "아무 음악도 안틀어져있잖아..")
     if player_status[con.message.server.id] == True:
         servers_songs[con.message.server.id].volume = vol
 
