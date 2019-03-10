@@ -6,6 +6,7 @@ from discord.ext import commands
 from discord.utils import find
 import requests as rq
 thetoken = os.getenv("BOT_TOKEN")
+#lag
 
 
 def get_prefix(bot, msg):
