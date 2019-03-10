@@ -171,7 +171,7 @@ async def 스킵(con):
     # COMMAND NOT IN DM
     if con.message.channel.is_private == False:
         if servers_songs[con.message.server.id] == None or len(song_names[con.message.server.id]) == 0 or player_status[con.message.server.id] == False:
-            await bot.send_message(con.message.channel, "**스킵됨!**")
+            await bot.send_message(con.message.channel, "**스킵할 노래가 없는데요**")
         if servers_songs[con.message.server.id] != None:
             bot.loop.create_task(queue_songs(con, True, False))
 
@@ -198,18 +198,20 @@ async def 들어와(con, *, channel=None):
 
         if voice_status == False and channel != None:  # PICKING A VOICE CHANNEL
             await bot.join_voice_channel(voice)
+            await bot.send_message(con.message.channel, "들어감!")
 
         if voice_status == True:  # VOICE ALREADY CONNECTED
             if voice == None:
-                await bot.send_message(con.message.channel, "**이미 그 채널에 있어..**")
+                await bot.send_message(con.message.channel, "**이미 다른 채널에 있어..**")
 
             if voice != None:
                 if voice.type == discord.ChannelType.voice:
                     await bot.voice_client_in(con.message.server).move_to(voice)
 
+                    
 
 @bot.command(pass_context=True)
-async def 나가(con):
+async def 저리가(con):
     """모든 유저가 음성 채널을 떠났어 ㅠㅠ 음악 끌게.."""
     # COMMAND USED IN DM
     if con.message.channel.is_private == True:
@@ -225,6 +227,7 @@ async def 나가(con):
         # VOICE ALREADY CONNECTED
         if bot.is_voice_connected(con.message.server) == True:
             bot.loop.create_task(queue_songs(con, False, True))
+            await bot.send_message(con.message.channel, "ㅠㅠ 나감..")
 
 
 @bot.command(pass_context=True)
