@@ -18,7 +18,7 @@ def get_prefix(bot, msg):
 
 
 bot = commands.Bot(command_prefix=get_prefix,description='Waterbot Music')
-YOUTUBE_API='AIzaSyANdiduuSyKI0q5nrPDqDjYxsfqci-o5fA'
+YOUTUBE_API='AIzaSyD5HkfjExwmv2HFDfS0zwAHdkrNNEmJcsw'
 bot.remove_command('help')
 
 from discord import opus
