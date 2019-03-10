@@ -6,8 +6,6 @@ from discord.ext import commands
 from discord.utils import find
 import requests as rq
 thetoken = os.getenv("BOT_TOKEN")
-#lag
-
 
 def get_prefix(bot, msg):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
@@ -20,7 +18,7 @@ def get_prefix(bot, msg):
 
 
 bot = commands.Bot(command_prefix=get_prefix,description='A music bot fro discord Kurusaki')
-YOUTUBE_API='AIzaSyAiDtG6wLHkJV7DTme5r8bokspJan2JJ6w'
+YOUTUBE_API='AIzaSyAudRKJIqqvssqx9ZXXa6jC8oLquGUtzSM'
 bot.remove_command('help')
 
 from discord import opus
