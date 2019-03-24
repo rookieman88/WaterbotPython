@@ -65,7 +65,7 @@ async def on_message(message):
 
                 
 
-                if "~개발 종료" == message.content:
+                if "워터봇 개발 봇종료" == message.content:
                     if message.author.id == Setting.owner_id:
                         await app.send_message(message.channel, "<@%s>, 봇의 가동을 중지합니다. 5분 이내로 오프라인으로 전환됩니다(디스코드 API 딜레이)." % (message.author.id))
                         await app.change_presence(game=discord.Game(name="Offline", type=0))
@@ -74,7 +74,7 @@ async def on_message(message):
                     else:
                         await app.send_message(message.channel, "<@%s>, 봇 관리자로 등록되어 있지 않습니다. ~~오아시스는 같이 일할 노동자가 필요합니다~~." % (message.author.id))
 
-                if message.content.startswith('~개발 상태메시지'):
+                if message.content.startswith('워터봇 개발 상태메시지'):
                     if message.author.id == Setting.owner_id:
                         result = change_presence(message)
                         if result == False:
@@ -88,7 +88,7 @@ async def on_message(message):
 
             
 
-                if message.content.startswith('~개발 블랙리스트'):
+                if message.content.startswith('워터봇 개발 블랙리스트'):
                     if message.author.id == Setting.owner_id:
                         result = user_ban(message)
                         if result == False:
@@ -98,7 +98,7 @@ async def on_message(message):
                     else:
                         await app.send_message(message.channel, "<@%s>, 봇 관리자로 등록되어 있지 않습니다. ~~오아시스는 같이 일할 사람이 필요합니다~~." % (message.author.id))
 
-                if message.content.startswith('~개발 블랙리스트 풀기'):
+                if message.content.startswith('워터봇 개발 블랙리스트 풀기'):
                     if message.author.id == Setting.owner_id:
                         result = user_unban(message)
                         if result == False:
@@ -109,7 +109,7 @@ async def on_message(message):
                         await app.send_message(message.channel, "<@%s>, 봇 관리자로 등록되어 있지 않습니다. ~~오아시스는 같이 일할 사람이 필요합니다~~." % (message.author.id))
 
 
-                if "~개발 전체공지" in message.content:
+                if "워터봇 개발 전체공지" in message.content:
                     if message.author.id == Setting.owner_id:
                         # DPNK 사용 구문 시점
                         embed=discord.Embed(title="워터봇 전체공지", color=Setting.embed_color)
