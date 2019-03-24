@@ -370,6 +370,8 @@ async def change_status():
 		current_status = next(msgelel)
 		await bot.change_presence(game=discord.Game(name=current_status))
 		await asyncio.sleep(3)
+		
+bot.loop.create_task(change_status())
 
 
 bot.run(thetoken)
