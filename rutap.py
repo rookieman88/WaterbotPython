@@ -28,24 +28,6 @@ a = 0
 
 app.run(token)
 
-async def unknown_error(message, e):
-    now = datetime.datetime.now()
-    randcode = "ERR :: %s%s%s%s" % (now.month, random.randint(1,10000000), now.day, random.randint(1,10000))
-    embed = discord.Embed(title="죄송합니다. 원인을 알 수 없는 애러가 발생했습니다.", description="애러가 계속 발생 할 경우, 아래에 있는 오류코드를 가지고 문의 해 주시기 바랍니다.", color=Setting.error_embed_color)
-    embed.set_footer(text = randcode)
-    await app.send_message(message.channel, embed=embed)
-    await app.send_message(app.get_channel(Setting.err_log_channel), "```Markdown\n# Unknown error\n* info : %s(%s) | %s(%s) | %s(%s)\n* Code : %s\n* errinfo : %s```" % (message.server, message.server.id, message.channel, message.channel.id, message.author, message.author.id, randcode, e))
-
-async def http_error(message, e):
-    now = datetime.datetime.now()
-    randcode = "ERR :: %s%s%s%s" % (now.month, random.randint(1,10000000), now.day, random.randint(1,10000))
-    embed = discord.Embed(title="죄송합니다. 예기치 못한 애러가 발생했습니다.", description="봇이 메시지에 관련된 충분한 권한을 가지고 있는지 다시 한 번 확인 해 주시기 바랍니다.", color=0xff0000)
-    embed.set_footer(text = randcode)
-    await app.send_message(message.author, embed=embed)
-    log_actvity("Discord HTTPException has occured in %s(%s) | %s(%s) : %s" % (message.server.id, message.server.name, message.channel.id, message.channel, e))
-    await app.send_message(app.get_channel(Setting.err_log_channel), "```Markdown\n# Unknown error\n* info : %s(%s) | %s(%s) | %s(%s)\n* Code : %s\n* errinfo : %s```" % (message.server, message.server.id, message.channel, message.channel.id, message.author, message.author.id, randcode, e))
-
-
 @app.event
 async def on_message(message):
     try:
@@ -67,49 +49,6 @@ async def on_message(message):
                 prefix = open("Server_%s/%s_Server_prefix.rts" % (message.server.id, message.server.id), 'r').read()
 
                 
-
-                if "워터봇 개발 봇종료" == message.content:
-                    if message.author.id == Setting.owner_id:
-                        await app.send_message(message.channel, "<@%s>, 봇의 가동을 중지합니다. 5분 이내로 오프라인으로 전환됩니다(디스코드 API 딜레이)." % (message.author.id))
-                        await app.change_presence(game=discord.Game(name="Offline", type=0))
-                        log_actvity("Change status to offline (Request by. %s)." % (message.author.id))
-                        exit()
-                    else:
-                        await app.send_message(message.channel, "<@%s>, 봇 관리자로 등록되어 있지 않습니다. ~~오아시스는 같이 일할 노동자가 필요합니다~~." % (message.author.id))
-
-                if message.content.startswith('워터봇 개발 상태메시지'):
-                    if message.author.id == Setting.owner_id:
-                        result = change_presence(message)
-                        if result == False:
-                            await app.send_message(message.channel, "<@%s>, 상태메시지는 비워둘 수 없습니다. 다시 시도 해 주세요." % (message.author.id))
-                        else:
-                            open("rpc.rts", 'w').write(str(message.content[17:]))
-                            await app.send_message(message.channel, "<@%s>, 봇이 `%s`을(를) 플레이 하게 됩니다." % (message.author.id, message.content[17:]))
-                            await app.change_presence(game=discord.Game(name=result, type=0))
-                    else:
-                        await app.send_message(message.channel, "<@%s>, 봇 관리자로 등록되어 있지 않습니다. ~~오아시스는 같이 일할 사람이 필요합니다~~" % (message.author.id))
-
-            
-
-                if message.content.startswith('워터봇 개발 블랙리스트'):
-                    if message.author.id == Setting.owner_id:
-                        result = user_ban(message)
-                        if result == False:
-                            await app.send_message(message.channel, "<@%s>, 자기 자신을 밴 시킬 수 없습니다!" % (message.author.id))
-                        else:
-                            await app.send_message(message.channel, "<@%s>, 앞으로 `%s`님의 모든 메시지를 무시합니다." % (message.author.id, result))
-                    else:
-                        await app.send_message(message.channel, "<@%s>, 봇 관리자로 등록되어 있지 않습니다. ~~오아시스는 같이 일할 사람이 필요합니다~~." % (message.author.id))
-
-                if message.content.startswith('워터봇 개발 블랙리스트 풀기'):
-                    if message.author.id == Setting.owner_id:
-                        result = user_unban(message)
-                        if result == False:
-                            await app.send_message(message.channel, "<@%s>, 해당 유저는 밴 되지 않았습니다!" % (message.author.id))
-                        else:
-                            await app.send_message(message.channel, "<@%s>, 앞으로 `%s`님의 모든 메시지를 무시하지 않습니다." % (message.author.id, result))
-                    else:
-                        await app.send_message(message.channel, "<@%s>, 봇 관리자로 등록되어 있지 않습니다. ~~오아시스는 같이 일할 사람이 필요합니다~~." % (message.author.id))
 
 
                 if "워터봇 개발 전체공지" in message.content:
