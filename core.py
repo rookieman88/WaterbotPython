@@ -6,7 +6,7 @@ from discord.utils import find
 import requests as rq
 import os
 thetoken = os.getenv("BOT_TOKEN")
-app = discord.Client()
+
 
 
 def get_prefix(bot, msg):
@@ -266,6 +266,8 @@ async def 볼륨(con, vol: float):
         await bot.send_message(con.message.channel, "아무 음악도 안틀어져 있음")
     if player_status[con.message.server.id] == True:
         servers_songs[con.message.server.id].volume = vol
+        
+        app = discord.Client()
         
 if "~공지" in message.content:
     
