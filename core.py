@@ -363,12 +363,12 @@ async def 볼륨(con, vol: float):
         
 status = ['~도움 입력 가즈아ㅏㅏ', '주식기능 개발중!' , '꼬우면 oAsIcS#5074로 DMㄱㄱ', 'JS + Python 버전', 'Water Bot v1.0', 'https://github.com/rookieman88/WaterBot', ' AI탑제! | 워터야 (하고싶은말)']
 async def change_status():
-	await mu.wait_until_ready()
+	await bot.wait_until_ready()
 	msgelel = cycle(status)
 
-	while not app.is_closed:
+	while not bot.is_closed:
 		current_status = next(msgelel)
-		await app.change_presence(game=discord.Game(name=current_status))
+		await bot.change_presence(game=discord.Game(name=current_status))
 		await asyncio.sleep(3)
 
 
