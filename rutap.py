@@ -190,7 +190,7 @@ async def on_message(message):
                 
                     else:
                         await app.send_message(message.channel, "<@%s>, 봇 관리자로 등록되어 있지 않습니다. ~~오아시스는 같이 일할 사람이 필요합니다~~." % (message.author.id))
-
+#end
 
 
 app.run(token)
