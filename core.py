@@ -267,23 +267,25 @@ async def 볼륨(con, vol: float):
     if player_status[con.message.server.id] == True:
         servers_songs[con.message.server.id].volume = vol
         
-        app = discord.Client()
+
         
 if "~공지" in message.content:
     
                     if message.author.id == 417571990820618250:
                   
+
+                    
                         embed=discord.Embed(title="워터봇 전체공지 시스템")
                         embed.add_field(name="공지 발신을 준비하고 있습니다!", value="요청자 : <@" + message.author.id + ">", inline=True)
-                        mssg = await app.send_message(message.channel, embed=embed)
+                        mssg = await bot.send_message(message.channel, embed=embed)
                         a = []
                         b = []
                         e = []
                         ec = {}
                         embed=discord.Embed(title="루탑봇 전체공지 시스템")
                         embed.add_field(name="공지 발신중 입니다!", value="요청자 : <@" + message.author.id + ">", inline=True)
-                        await app.edit_message(mssg, embed=embed)
-                        for server in app.servers:
+                        await bot.edit_message(mssg, embed=embed)
+                        for server in bot.servers:
                             for channel in server.channels:
                                 for tag in ["notice", "공지", "알림", "Alarm", "워터봇-공지", "Notice", "Announcements"]:
                                     if tag in channel.name:
@@ -294,7 +296,7 @@ if "~공지" in message.content:
                                         if dtat:
                                             if not server.id in a:
                                                 try:
-                                                    await app.send_message(channel, message.content)
+                                                    await bot.send_message(channel, message.content)
                                                 except discord.HTTPException:
                                                     e.append(str(channel.id))
                                                     ec[channel.id] = "HTTPException"
@@ -311,12 +313,12 @@ if "~공지" in message.content:
                                                     a.append(str(server.id))
                                                     b.append(str(channel.id))
                         asdf = "```\n"
-                        for server in app.servers:
+                        for server in bot.servers:
                             if not server.id in a:
                                 try:
-                                    ch = await app.create_channel(server, "워터봇-공지")
-                                    await app.send_message(ch, "**__공지 채널을 발견하지 못하여 자동적으로 해당 채널을 생성하였습니다.__**")
-                                    await app.send_message(ch, message.content)
+                                    ch = await bot.create_channel(server, "워터봇-공지")
+                                    await bot.send_message(ch, "**__공지 채널을 발견하지 못하여 자동적으로 해당 채널을 생성하였습니다.__**")
+                                    await bot.send_message(ch, message.content)
                                 except:
                                     asdf = asdf + str(server.name) + "[채널 생성에 실패하였습니다. (서버 관리자와 연락 요망)]\n"
                                 else:
@@ -327,11 +329,11 @@ if "~공지" in message.content:
                         bs = "```\n"
                         es = "```\n"
                         for bf in b:
-                            bn = app.get_channel(bf).name
+                            bn = bot.get_channel(bf).name
                             bs = bs + str(bn) + "\n"
                         for ef in e:
-                            en = app.get_channel(ef).name
-                            es = es + str(app.get_channel(ef).server.name) + "(#" + str(en) + ") : " + ec[ef] + "\n"
+                            en = bot.get_channel(ef).name
+                            es = es + str(bot.get_channel(ef).server.name) + "(#" + str(en) + ") : " + ec[ef] + "\n"
                         bs = bs + "```"
                         es = es + "```"
                         if bs == "``````":
@@ -346,11 +348,11 @@ if "~공지" in message.content:
                         embed.add_field(name="공지 발신에 성공한 채널은 다음과 같습니다 :", value=sucess, inline=False)
                         embed.add_field(name="공지 발신에 실패한 채널은 다음과 같습니다 :", value=missing, inline=False)
                         embed.add_field(name="키워드가 발견되지 않은 서버는 다음과 같습니다 :", value=notfound, inline=False)
-                        await app.edit_message(mssg, embed=embed)
+                        await bot.edit_message(mssg, embed=embed)
                    
                        
                     else:
-                        await app.send_message(message.channel, "니가 오아시스냐" % (message.author.id))
+                        await bot.send_message(message.channel, "니가 오아시스냐" % (message.author.id))
 
 
 
