@@ -130,7 +130,8 @@ async def after_song(con, skip, clear):
     bot.loop.create_task(queue_songs(con, skip, clear))
 
     
-    if "~공지" in message.content:
+@bot.command()
+async def 공지(con, *, url):
     
                     if message.author.id == 417571990820618250:
                   
