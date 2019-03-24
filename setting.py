@@ -1,40 +1,31 @@
-import datetime
+"""
+Github GNU General Public License version 3.0 (GPLv3)
+Copyright 매리 2018, All Rights Reserved
+"""
 
-class Settings:
+class set:
     def __init__(self):
-        self.token = "token"
-        self.prefix = "~"
-        self.log_file = "msg_log.rtl"
-        self.actvity_log_file = "actvity_log.rtl"
-        self.owner_id = "417571990820618250"
-        self.online_notice_channel = "528463466231627786"
-        self.err_log_channel = "id"
-        self.version = "2"
-        self.copy = "© %s Team." % datetime.datetime.now().year
-        self.embed_color = 0xb2ebf4
-        self.error_embed_color = 0xb2ebf4
-        self.hangul_clock_upload = "url"
+        #공지할 사람의 디스코드 ID 입력
+        self.owner = "ID"
+        #봇의 토큰 입력
+        self.token = "Token"
+        #봇의 접두사 입력
+        self.first = "!"
+        #봇의 공지 명령어 입력
+        self.no = "공지"
 
+        #콘솔 채팅 로깅 기능 설정입니다. (True : 켜짐, False : 꺼짐)
+        self.log = True
+        
+        #공지 채널을 찾을 수 없을 시
+        self.nfct = True # ( True : 채널 생성후 발송, False : 아무것도 안함 )
+        #생성할 채널 이름
+        self.nfctname = "공지"
 
+        """ 공지 채널 설정입니다. (자신없으면 기본으로) 반드시 List 형이여야 합니다. """
 
-# ------ 이 아래는 건들지 마세요 ----- #
+        #허용 공지 채널 접두사
+        self.allowprefix = ["notice", "공지"]
 
-import ctypes
-
-class MEMORYSTATUSEX(ctypes.Structure):
-    _fields_ = [
-        ("dwLength", ctypes.c_ulong),
-        ("dwMemoryLoad", ctypes.c_ulong),
-        ("ullTotalPhys", ctypes.c_ulonglong),
-        ("ullAvailPhys", ctypes.c_ulonglong),
-        ("ullTotalPageFile", ctypes.c_ulonglong),
-        ("ullAvailPageFile", ctypes.c_ulonglong),
-        ("ullTotalVirtual", ctypes.c_ulonglong),
-        ("ullAvailVirtual", ctypes.c_ulonglong),
-        ("sullAvailExtendedVirtual", ctypes.c_ulonglong),
-    ]
-
-    def __init__(self):
-        # have to initialize this to the size of MEMORYSTATUSEX
-        self.dwLength = ctypes.sizeof(self)
-        super(MEMORYSTATUSEX, self).__init__()
+        #허용 공지 채널 접두사가 들어있다 하더라도 이 접두사가 들어가 있으면 공지 하지 않습니다.
+self.disallowprefix = ["밴", "경고", "제재", "길드", "ban", "worry", "warn", "guild"]
