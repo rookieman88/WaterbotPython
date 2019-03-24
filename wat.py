@@ -31,12 +31,6 @@ async def on_ready():
 async def on_message(message):
     if message.author.id == app.user.id: return
 
-    if set.log:
-        print("Channel: %s(%s) | Author: %s(#%s) | Message: %s" % (
-            message.channel, str(message.channel.id)[:5],
-            message.author.name, str(message.author.id),
-            message.content
-	    	))
 
     s = set.first + set.no
     if s in message.content:
