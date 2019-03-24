@@ -6,9 +6,7 @@ Copyright 매리 2018, All Rights Reserved
 class set:
     def __init__(self):
         #공지할 사람의 디스코드 ID 입력
-        self.owner = "ID"
-        #봇의 토큰 입력
-        self.token = "Token"
+        self.owner = "417571990820618250"
         #봇의 접두사 입력
         self.first = "~"
         #봇의 공지 명령어 입력
@@ -25,7 +23,7 @@ class set:
         """ 공지 채널 설정입니다. (자신없으면 기본으로) 반드시 List 형이여야 합니다. """
 
         #허용 공지 채널 접두사
-        self.allowprefix = ["notice", "공지"]
+        self.allowprefix = ["notice", "공지", "워터봇-공지"]
 
         #허용 공지 채널 접두사가 들어있다 하더라도 이 접두사가 들어가 있으면 공지 하지 않습니다.
-self.disallowprefix = ["밴", "경고", "제재", "길드", "ban", "worry", "warn", "guild"]
+        self.disallowprefix = ["밴", "경고", "제재", "길드", "ban", "worry", "warn", "guild"]
