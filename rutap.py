@@ -25,6 +25,9 @@ Setting = setting.Settings()
 Copyright = Setting.copy
 a = 0
 
+
+app.run(token)
+
 async def unknown_error(message, e):
     now = datetime.datetime.now()
     randcode = "ERR :: %s%s%s%s" % (now.month, random.randint(1,10000000), now.day, random.randint(1,10000))
@@ -193,4 +196,3 @@ async def on_message(message):
 #end
 
 
-app.run(token)
