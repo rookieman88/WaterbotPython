@@ -20,8 +20,6 @@ class set:
         #생성할 채널 이름
         self.nfctname = "공지"
 
-        """ 공지 채널 설정입니다. (자신없으면 기본으로) 반드시 List 형이여야 합니다. """
-
         #허용 공지 채널 접두사
         self.allowprefix = ["notice", "공지", "워터봇-공지"]
 
