@@ -19,6 +19,7 @@ def get_prefix(bot, msg):
 
 
 bot = commands.Bot(command_prefix=get_prefix,description='Waterbot Music')
+app = discord.Client()
 YOUTUBE_API='AIzaSyD5HkfjExwmv2HFDfS0zwAHdkrNNEmJcsw'
 bot.remove_command('help')
 
@@ -137,15 +138,15 @@ async def after_song(con, skip, clear):
                     
                         embed=discord.Embed(title="워터봇 전체공지 시스템")
                         embed.add_field(name="공지 발신을 준비하고 있습니다!", value="요청자 : <@" + message.author.id + ">", inline=True)
-                        mssg = await bot.send_message(message.channel, embed=embed)
+                        mssg = await app.send_message(message.channel, embed=embed)
                         a = []
                         b = []
                         e = []
                         ec = {}
-                        embed=discord.Embed(title="루탑봇 전체공지 시스템")
+                        embed=discord.Embed(title="워터봇 전체공지 시스템")
                         embed.add_field(name="공지 발신중 입니다!", value="요청자 : <@" + message.author.id + ">", inline=True)
-                        await bot.edit_message(mssg, embed=embed)
-                        for server in bot.servers:
+                        await app.edit_message(mssg, embed=embed)
+                        for server in app.servers:
                             for channel in server.channels:
                                 for tag in ["notice", "공지", "알림", "Alarm", "워터봇-공지", "Notice", "Announcements"]:
                                     if tag in channel.name:
@@ -156,7 +157,7 @@ async def after_song(con, skip, clear):
                                         if dtat:
                                             if not server.id in a:
                                                 try:
-                                                    await bot.send_message(channel, message.content)
+                                                    await app.send_message(channel, message.content)
                                                 except discord.HTTPException:
                                                     e.append(str(channel.id))
                                                     ec[channel.id] = "HTTPException"
@@ -173,12 +174,12 @@ async def after_song(con, skip, clear):
                                                     a.append(str(server.id))
                                                     b.append(str(channel.id))
                         asdf = "```\n"
-                        for server in bot.servers:
+                        for server in app.servers:
                             if not server.id in a:
                                 try:
-                                    ch = await bot.create_channel(server, "워터봇-공지")
-                                    await bot.send_message(ch, "**__공지 채널을 발견하지 못하여 자동적으로 해당 채널을 생성하였습니다.__**")
-                                    await bot.send_message(ch, message.content)
+                                    ch = await app.create_channel(server, "워터봇-공지")
+                                    await app.send_message(ch, "**__공지 채널을 발견하지 못하여 자동적으로 해당 채널을 생성하였습니다.__**")
+                                    await app.send_message(ch, message.content)
                                 except:
                                     asdf = asdf + str(server.name) + "[채널 생성에 실패하였습니다. (서버 관리자와 연락 요망)]\n"
                                 else:
@@ -189,11 +190,11 @@ async def after_song(con, skip, clear):
                         bs = "```\n"
                         es = "```\n"
                         for bf in b:
-                            bn = bot.get_channel(bf).name
+                            bn = app.get_channel(bf).name
                             bs = bs + str(bn) + "\n"
                         for ef in e:
-                            en = bot.get_channel(ef).name
-                            es = es + str(bot.get_channel(ef).server.name) + "(#" + str(en) + ") : " + ec[ef] + "\n"
+                            en = app.get_channel(ef).name
+                            es = es + str(app.get_channel(ef).server.name) + "(#" + str(en) + ") : " + ec[ef] + "\n"
                         bs = bs + "```"
                         es = es + "```"
                         if bs == "``````":
@@ -208,11 +209,11 @@ async def after_song(con, skip, clear):
                         embed.add_field(name="공지 발신에 성공한 채널은 다음과 같습니다 :", value=sucess, inline=False)
                         embed.add_field(name="공지 발신에 실패한 채널은 다음과 같습니다 :", value=missing, inline=False)
                         embed.add_field(name="키워드가 발견되지 않은 서버는 다음과 같습니다 :", value=notfound, inline=False)
-                        await bot.edit_message(mssg, embed=embed)
+                        await app.edit_message(mssg, embed=embed)
                    
                        
                     else:
-                        await bot.send_message(message.channel, "니가 오아시스냐" % (message.author.id))
+                        await app.send_message(message.channel, "니가 오아시스냐" % (message.author.id))
 
     
     
