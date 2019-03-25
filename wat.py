@@ -5,7 +5,7 @@ notice module by 메리
 some command by haveadooday
 """
 
-owner = []
+owner = [417571990820618250]
 
 import asyncio
 import discord 
