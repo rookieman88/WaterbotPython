@@ -120,15 +120,15 @@ from itertools import cycle
         
 status = ['WaterBot v1.0', '주식기능 개발중!' , '꼬우면 oAsIcS#5074로 DMㄱㄱ', 'JS + Python 버전', '~도움 입렵 가즈아ㅏㅏ']
 async def change_status():
-	await bot.wait_until_ready()
+	await app.wait_until_ready()
 	msgelel = cycle(status)
 
-	while not bot.is_closed:
+	while not app.is_closed:
 		current_status = next(msgelel)
-		await bot.change_presence(game=discord.Game(name=current_status))
+		await app.change_presence(game=discord.Game(name=current_status))
 		await asyncio.sleep(3)
 		
-bot.loop.create_task(change_status())
+app.loop.create_task(change_status())
 
 
 
