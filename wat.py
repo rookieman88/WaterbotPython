@@ -122,7 +122,7 @@ import youtube_dl
 from discord.ext import commands
 from discord.utils import find
 import requests as rq
-import os
+
 thetoken = os.getenv("BOT_TOKEN")
 
 
