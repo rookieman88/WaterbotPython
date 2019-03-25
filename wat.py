@@ -11,7 +11,6 @@ import asyncio
 import discord 
 import setting
 import os
-import youtube_dl
 from discord.ext import commands
 from discord.utils import find
 import requests as rq
