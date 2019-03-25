@@ -15,6 +15,7 @@ import youtube_dl
 from discord.ext import commands
 from discord.utils import find
 import requests as rq
+set = setting.set
 
 thetoken = os.getenv("BOT_TOKEN")
 
