@@ -66,9 +66,6 @@ async def on_message(message):
         except:
            await client.send_message(channel,'없는 도시입니다!')
 
-	
-    if message.author.id == app.user.id: return
-
 
     s = set.first + set.no
     if s in message.content:
