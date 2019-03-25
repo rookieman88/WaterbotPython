@@ -392,7 +392,7 @@ async def 볼륨(con, vol: float):
         
 from itertools import cycle
         
-status = ['WaterBot v1.0', '주식기능 개발중!' , '꼬우면 oAsIcS#5074로 DMㄱㄱ', 'JS + Python 버전', '~도움 입렵 가즈아ㅏㅏ'']
+status = ['WaterBot v1.0', '주식기능 개발중!' , '꼬우면 oAsIcS#5074로 DMㄱㄱ', 'JS + Python 버전', '~도움 입렵 가즈아ㅏㅏ']
 async def change_status():
 	await bot.wait_until_ready()
 	msgelel = cycle(status)
