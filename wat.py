@@ -39,8 +39,15 @@ app = discord.Client()
 thetoken = os.getenv("BOT_TOKEN")
 
 
+
+
+
+
+
 @app.event
-     if message.content.startswith('~날씨'):
+async def on_message(message):
+	
+	     if message.content.startswith('~날씨'):
         try:
             embed = discord.Embed(title='로딩중..',description='불러오고있습니다!',color=0x00ff00)
             meg = await client.send_message(channel,embed=embed)
@@ -59,10 +66,7 @@ thetoken = os.getenv("BOT_TOKEN")
         except:
            await client.send_message(channel,'없는 도시입니다!')
 
-
-
-@app.event
-async def on_message(message):
+	
     if message.author.id == app.user.id: return
 
 
