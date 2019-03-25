@@ -152,7 +152,9 @@ async def on_message(message):
             embed.add_field(name="공지 채널 없는 서버:", value=notfound, inline=True)
             await app.edit_message(mssg, embed=embed)
         else:
-await app.send_message(message.channel, "봇 제작자만 사용할수 있는 커맨드입니다!")    
+           await app.send_message(message.channel, "봇 제작자만 사용할수 있는 커맨드입니다!")    
+
+
 
 from itertools import cycle
         
