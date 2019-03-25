@@ -17,6 +17,9 @@ from discord.utils import find
 import requests as rq
 set = setting.set
 
+
+app = discord.Client()
+
 thetoken = os.getenv("BOT_TOKEN")
 
 
