@@ -9,13 +9,85 @@ owner = []
 import asyncio
 import discord 
 import setting
+import os
+import youtube_dl
+from discord.ext import commands
+from discord.utils import find
+import requests as rq
+
+thetoken = os.getenv("BOT_TOKEN")
+
+
+
+def get_prefix(bot, msg):
+    """이 봇의 접두사는 '~' 입니다."""
+
+
+    prefixes = ['~']
+
+    return commands.when_mentioned_or(*prefixes)(bot, msg)
+
+
+bot = commands.Bot(command_prefix=get_prefix,description='Waterbot Music')
+app = discord.Client()
+YOUTUBE_API='AIzaSyD5HkfjExwmv2HFDfS0zwAHdkrNNEmJcsw'
 
 set = setting.set()
 
 client = discord.Client()
 
-app = discord.Client() 
-import os
+from discord import opus
+OPUS_LIBS = ['libopus-0.x86.dll', 'libopus-0.x64.dll','libopus-0.dll', 'libopus.so.0', 'libopus.0.dylib']
+
+
+def load_opus_lib(opus_libs=OPUS_LIBS):
+    if opus.is_loaded():
+        return True
+
+    for opus_lib in opus_libs:
+            try:
+                opus.load_opus(opus_lib)
+                return
+            except OSError:
+                pass
+
+    raise RuntimeError('Could not load an opus lib. Tried %s' %(', '.join(opus_libs)))
+
+
+load_opus_lib()
+opts = {
+    'default_search': 'auto',
+    'quiet': True,
+    "no_warnings":True,
+    "simulate":True, #do not keep the video files
+    "nooverwrites":True,
+    "keepvideo":False,
+    "noplaylist":True,
+    "skip_download":True,
+    "prefer_ffmpeg":True
+}  # youtube_dl options
+
+
+
+servers_songs = {}
+player_status = {}
+now_playing = {}
+song_names = {}
+paused = {}
+rq_channel = {}
+
+
+async def set_player_status():
+    for i in bot.servers:
+        player_status[i.id] = False
+        servers_songs[i.id] = None
+        paused[i.id] = False
+        song_names[i.id] = []
+    print(200)
+
+
+async def bg():
+    bot.loop.create_task(set_player_status())
 
 
 
@@ -118,81 +190,9 @@ async def on_message(message):
 			    
 
 
-import youtube_dl
-from discord.ext import commands
-from discord.utils import find
-import requests as rq
-
-thetoken = os.getenv("BOT_TOKEN")
 
 
 
-def get_prefix(bot, msg):
-    """이 봇의 접두사는 '~' 입니다."""
-
-
-    prefixes = ['~']
-
-    return commands.when_mentioned_or(*prefixes)(bot, msg)
-
-
-bot = commands.Bot(command_prefix=get_prefix,description='Waterbot Music')
-app = discord.Client()
-YOUTUBE_API='AIzaSyD5HkfjExwmv2HFDfS0zwAHdkrNNEmJcsw'
-bot.remove_command('help')
-
-from discord import opus
-OPUS_LIBS = ['libopus-0.x86.dll', 'libopus-0.x64.dll','libopus-0.dll', 'libopus.so.0', 'libopus.0.dylib']
-
-
-def load_opus_lib(opus_libs=OPUS_LIBS):
-    if opus.is_loaded():
-        return True
-
-    for opus_lib in opus_libs:
-            try:
-                opus.load_opus(opus_lib)
-                return
-            except OSError:
-                pass
-
-    raise RuntimeError('Could not load an opus lib. Tried %s' %(', '.join(opus_libs)))
-
-
-load_opus_lib()
-opts = {
-    'default_search': 'auto',
-    'quiet': True,
-    "no_warnings":True,
-    "simulate":True, #do not keep the video files
-    "nooverwrites":True,
-    "keepvideo":False,
-    "noplaylist":True,
-    "skip_download":True,
-    "prefer_ffmpeg":True
-}  # youtube_dl options
-
-
-
-servers_songs = {}
-player_status = {}
-now_playing = {}
-song_names = {}
-paused = {}
-rq_channel = {}
-
-
-async def set_player_status():
-    for i in bot.servers:
-        player_status[i.id] = False
-        servers_songs[i.id] = None
-        paused[i.id] = False
-        song_names[i.id] = []
-    print(200)
-
-
-async def bg():
-    bot.loop.create_task(set_player_status())
 
 
 @bot.event
