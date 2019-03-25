@@ -118,7 +118,7 @@ async def on_message(message):
 
 from itertools import cycle
         
-status = ['WaterBot v1.0', '주식기능 개발중!' , '꼬우면 oAsIcS#5074로 DMㄱㄱ', 'JS + Python 버전', '~도움 입렵 가즈아ㅏㅏ']
+status = ['WaterBot v1.0', '주식기능 개발중!' , '꼬우면 oAsIcS#5074로 DMㄱㄱ', 'JS + Python 버전', '~도움 입 가즈아ㅏㅏ']
 async def change_status():
 	await app.wait_until_ready()
 	msgelel = cycle(status)
