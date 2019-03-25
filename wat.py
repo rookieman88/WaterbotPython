@@ -47,9 +47,9 @@ thetoken = os.getenv("BOT_TOKEN")
 @app.event
 async def on_message(message):
 	
-	     if message.content.startswith('~날씨'):
-                  try:
-            embed = discord.Embed(title='로딩중..',description='불러오고있습니다!',color=0x00ff00)
+     if message.content.startswith('h!날씨'):
+        try:
+            embed = discord.Embed(title='잠시만요',description='불러오고있습니다!',color=0x00ff00)
             meg = await client.send_message(channel,embed=embed)
             learn = message.content.split(" ")
             location = learn[1]
