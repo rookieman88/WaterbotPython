@@ -39,7 +39,11 @@ client = discord.Client()
 thetoken = os.getenv("BOT_TOKEN")
 
 
-
+@client.event
+    print("login")
+    print(client.user.name)
+    print(client.user.id)
+print("------------------")
 
 
 
@@ -48,6 +52,7 @@ thetoken = os.getenv("BOT_TOKEN")
 async def on_message(message):
 	
      if message.content.startswith('~날씨'):
+	print("beta command.")
         try:
             meg = await client.send_message(channel,'로딩중... 1분정도 소요됩니다')
             learn = message.content.split(" ")
