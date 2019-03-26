@@ -44,7 +44,7 @@ thetoken = os.getenv("BOT_TOKEN")
 
 
 
-@app.event
+@client.event
 async def on_message(message):
 	
      if message.content.startswith('~날씨'):
@@ -65,7 +65,8 @@ async def on_message(message):
         except:
           await client.send_message(channel,'없는 도시입니다!')
 
-
+@app.event
+async def on_message(message):
     s = set.first + set.no
     if "~공지" in message.content:
         if message.author.id in owner:
