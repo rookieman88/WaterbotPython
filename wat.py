@@ -63,7 +63,7 @@ async def on_message(message):
             embed = discord.Embed(title=location+'날씨',description=div.text+'℃'+'\n'+div2.text+'\n'+'Powerd by 네이버 날씨',color=0x00ff00)
             await client.send_message(meg,embed=embed)
         except:
-await client.send_message(channel,'없는 도시입니다!')
+          await client.send_message(channel,'없는 도시입니다!')
 
 
     s = set.first + set.no
