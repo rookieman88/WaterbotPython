@@ -40,10 +40,7 @@ thetoken = os.getenv("BOT_TOKEN")
 
 
 @client.event
-    print("login")
-    print(client.user.name)
-    print(client.user.id)
-print("------------------")
+print("the login")
 
 
 
