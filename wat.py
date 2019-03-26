@@ -48,7 +48,6 @@ thetoken = os.getenv("BOT_TOKEN")
 async def on_message(message):
 	
      if message.content.startswith('~날씨'):
-	print('베타 커멘드 실행됨')
         try:
             meg = await client.send_message(channel,'로딩중... 1분정도 소요됩니다')
             learn = message.content.split(" ")
