@@ -78,8 +78,6 @@ async def on_message(message):
             notice = message.content.replace(s, "")
             embed=discord.Embed(title="공지 시스템", color=0x80ff80)
             embed.add_field(name="공지 발신 준비중!", value="<@" + message.author.id + ">", inline=True)
-            embed.set_author(name="by 매리(#4633)", icon_url="https://cdn.discordapp.com/avatars/351613953769603073/b4805197b14b4366c3aaebaf79109fa8.webp")
-            embed.set_footer(text="Notice Module by Mary")
             mssg = await app.send_message(message.channel, embed=embed)
             a = []
             b = []
