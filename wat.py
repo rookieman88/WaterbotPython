@@ -47,7 +47,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
 
-     if message.content.startswith('~날씨'):
+     if '~날씨' in message.content:
         try:
             meg = await client.send_message(message.channel,'로딩중...')
             learn = message.content.split(" ")
@@ -96,7 +96,7 @@ async def on_message(message):
            await client.send_message(message.channel,'없는 도시입니다!')
             
 
-     if message.content.startswith('~번역'):
+     if '~번역' in message.content:
         learn = message.content.split(" ")
         client_id = "cMk952QL7RsmQsctxHYP"
         client_secret = "fvfG3a6Q_c"
@@ -122,7 +122,7 @@ async def on_message(message):
 
 
         s = set.first + set.no
-        if s in message.content:
+        if '~공지' in message.content:
             if message.author.id in owner:
 		print('beta command')
                 notice = message.content.replace(s, "")
