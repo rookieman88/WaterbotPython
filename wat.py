@@ -90,7 +90,7 @@ async def on_message(message):
 
             await client.send_message(message.channel,embed=embed)
         except:
-           await client.send_message(channel,'없는 도시입니다!')
+           await client.send_message(message.channel,'없는 도시입니다!')
             
 
      if message.content.startswith('~번역'):
