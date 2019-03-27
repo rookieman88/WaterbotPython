@@ -119,10 +119,7 @@ async def on_message(message):
                 colour=discord.Colour.green()
             )
             await client.send_message(message.channel,embed=embed)
-   
-@client.event
-async def on_message(message):
-	
+
         s = set.first + set.no
         if s in message.content:
             if message.author.id in owner:
