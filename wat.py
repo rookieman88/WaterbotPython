@@ -46,55 +46,51 @@ async def on_message(message):
 
      if message.content.startswith('~날씨'):
         try:
-        await client.send_message(message.channel,'로딩중...')
-        learn = message.content.split(" ")
-        location = learn[1]
-        enc_location = urllib.parse.quote(location+'날씨')
-        hdr = {'User-Agent': 'Mozilla/5.0'}
-        url = 'https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=' + enc_location
-        print(url)
-        req = Request(url, headers=hdr)
-        html = urllib.request.urlopen(req)
-        bsObj = bs4.BeautifulSoup(html, "html.parser")
-        todayBase = bsObj.find('div', {'class': 'main_info'})
+            meg = await client.send_message(message.channel,'로딩중...')
+            learn = message.content.split(" ")
+            location = learn[1]
+            enc_location = urllib.parse.quote(location+'날씨')
+            hdr = {'User-Agent': 'Mozilla/5.0'}
+            url = 'https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=' + enc_location
+            req = Request(url, headers=hdr)
+            html = urllib.request.urlopen(req)
+            bsObj = bs4.BeautifulSoup(html, "html.parser")
+            todayBase = bsObj.find('div', {'class': 'main_info'})
 
-        todayTemp1 = todayBase.find('span', {'class': 'todaytemp'})
-        todayTemp = todayTemp1.text.strip()  # 온도
+            todayTemp1 = todayBase.find('span', {'class': 'todaytemp'})
+            todayTemp = todayTemp1.text.strip()  # 온
+            todayValueBase = todayBase.find('ul', {'class': 'info_list'})
+            todayValue2 = todayValueBase.find('p', {'class': 'cast_txt'})
+            todayValue = todayValue2.text.strip()  # 밝음,어제보다 ?도 높거나 낮음을 나타내줌
 
-        todayValueBase = todayBase.find('ul', {'class': 'info_list'})
-        todayValue2 = todayValueBase.find('p', {'class': 'cast_txt'})
-        todayValue = todayValue2.text.strip()  # 밝음,어제보다 ?도 높거나 낮음을 나타내줌
+            todayFeelingTemp1 = todayValueBase.find('span', {'class': 'sensible'})
+            todayFeelingTemp = todayFeelingTemp1.text.strip()  # 체감온도
 
-        todayFeelingTemp1 = todayValueBase.find('span', {'class': 'sensible'})
-        todayFeelingTemp = todayFeelingTemp1.text.strip()  # 체감온도
+            todayMiseaMongi1 = bsObj.find('div', {'class': 'sub_info'})
+            todayMiseaMongi2 = todayMiseaMongi1.find('div', {'class': 'detail_box'})
+            todayMiseaMongi3 = todayMiseaMongi2.find('dd')
+            todayMiseaMongi = todayMiseaMongi3.text  # 미세먼지
 
-        todayMiseaMongi1 = bsObj.find('div', {'class': 'sub_info'})
-        todayMiseaMongi2 = todayMiseaMongi1.find('div', {'class': 'detail_box'})
-        todayMiseaMongi3 = todayMiseaMongi2.find('dd')
-        todayMiseaMongi = todayMiseaMongi3.text  # 미세먼지
-
-        tomorrowBase = bsObj.find('div', {'class': 'table_info weekly _weeklyWeather'})
-        tomorrowTemp1 = tomorrowBase.find('li', {'class': 'date_info'})
-        tomorrowTemp2 = tomorrowTemp1.find('dl')
-        tomorrowTemp3 = tomorrowTemp2.find('dd')
-        tomorrowTemp = tomorrowTemp3.text.strip()  # 오늘 오전,오후온도
-     
-        embed = discord.Embed(
+            tomorrowBase = bsObj.find('div', {'class': 'table_info weekly _weeklyWeather'})
+            tomorrowTemp1 = tomorrowBase.find('li', {'class': 'date_info'})
+            tomorrowTemp2 = tomorrowTemp1.find('dl')
+            tomorrowTemp3 = tomorrowTemp2.find('dd')
+            tomorrowTemp = tomorrowTemp3.text.strip()  # 오늘 오전,오후온도
+          
+            embed = discord.Embed(
             title=learn[1]+ ' 날씨 정보',
             description=learn[1]+ '날씨 정보입니다.',
             colour=discord.Colour.gold()
         )
-        embed.add_field(name='현재온도', value=todayTemp+'˚', inline=False)  # 현재온도
-        embed.add_field(name='체감온도', value=todayFeelingTemp, inline=False)  # 체감온도
-        embed.add_field(name='현재상태', value=todayValue, inline=False)  # 밝음,어제보다 ?도 높거나 낮음을 나타내줌
-        embed.add_field(name='현재 미세먼지 상태', value=todayMiseaMongi, inline=False)  # 오늘 미세먼지
-        embed.add_field(name='오늘 오전/오후 날씨', value=tomorrowTemp, inline=False)  # 오늘날씨 # color=discord.Color.blue()
-        embed.add_field(name='by', '네이버 날씨', inline=False)
+            embed.add_field(name='현재온도', value=todayTemp+'˚', inline=False)  # 현재온도
+            embed.add_field(name='체감온도', value=todayFeelingTemp, inline=False)  # 체감온도
+            embed.add_field(name='현재상태', value=todayValue, inline=False)  # 밝음,어제보다 ?도 높거나 낮음을 나타내줌
+            embed.add_field(name='현재 미세먼지 상태', value=todayMiseaMongi, inline=False)  # 오늘 미세먼지
+            embed.add_field(name='오늘 오전/오후 날씨', value=tomorrowTemp, inline=False)  # 오늘날씨 # color=discord.Color.blue()
 
-           await client.send_message(message.channel,embed=embed)
-
+            await client.send_message(message.channel,embed=embed)
         except:
-           await client.send_message(message.channel,'없는 도시입니다!')
+           await client.send_message(channel,'없는 도시입니다!')
             
 
      if message.content.startswith('~번역'):
