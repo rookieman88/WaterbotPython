@@ -120,8 +120,11 @@ async def on_message(message):
             )
             await client.send_message(message.channel,embed=embed)
    
+@client.event
+async def on_message(message):
+	
         s = set.first + set.no
-        if "~공지" in message.content:
+        if s in message.content:
             if message.author.id in owner:
                 notice = message.content.replace(s, "")
                 embed=discord.Embed(title="공지 시스템", color=0x80ff80)
