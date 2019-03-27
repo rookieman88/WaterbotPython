@@ -40,6 +40,9 @@ async def on_ready():
      print('온라인(관리)')
      print(client.user.name)
      print('======')
+     
+@client.event
+async def on_message(message):
 
      if message.content.startswith('~날씨'):
         try:
