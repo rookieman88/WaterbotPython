@@ -124,7 +124,6 @@ async def on_message(message):
         s = set.first + set.no
         if '~공지' in message.content:
             if message.author.id in owner:
-		print('beta command')
                 notice = message.content.replace(s, "")
                 embed=discord.Embed(title="공지 시스템", color=0x80ff80)
                 embed.add_field(name="공지 발신 준비중!", value="<@" + message.author.id + ">", inline=True)
