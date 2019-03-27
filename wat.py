@@ -119,5 +119,5 @@ async def on_ready():
             await client.send_message(message.channel,embed=embed)
 
 
-access_token = getenv('BOT_TOKEN')
+access_token = os.getenv('BOT_TOKEN')
 client.run(access_token)
