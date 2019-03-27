@@ -46,7 +46,7 @@ async def on_message(message):
 
      if message.content.startswith('~날씨'):
         try:
-            meg = await client.send_message(channel,'로딩중...')
+            meg = await client.send_message(message.channel,'로딩중...')
             learn = message.content.split(" ")
             location = learn[1]
             enc_location = urllib.parse.quote(location+'날씨')
@@ -58,9 +58,9 @@ async def on_message(message):
             div = bs_obj.find("span",{"class":'todaytemp'})
             div2 = bs_obj.find("p",{"class":"cast_txt"})
             embed = discord.Embed(title=location+'날씨',description=div.text+'℃'+'\n'+div2.text+'\n'+'네이버 날씨',color=0x00ff00)
-            await client.send_message(meg,embed=embed)
+            await client.send_message(message.channel,embed=embed)
         except:
-           await client.send_message(channel,'없는 도시입니다!')
+           await client.send_message(message.channel,'없는 도시입니다!')
             
      if message.content.startswith('~미세먼지'):
         try:
