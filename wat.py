@@ -126,15 +126,15 @@ async def on_message(message):
                 notice = message.content.replace(s, "")
                 embed=discord.Embed(title="공지 시스템", color=0x80ff80)
                 embed.add_field(name="공지 발신 준비중!", value="<@" + message.author.id + ">", inline=True)
-                mssg = await app.send_message(message.channel, embed=embed)
+                mssg = await client.send_message(message.channel, embed=embed)
                 a = []
                 b = []
                 e = []
                 ec = {}
                 embed=discord.Embed(title="공지 시스템", color=0x80ff80)
                 embed.add_field(name="공지 발신중!", value="<@" + message.author.id + ">", inline=True)
-                await app.edit_message(mssg, embed=embed)
-                for server in app.servers:
+                await client.edit_message(mssg, embed=embed)
+                for server in client.servers:
                     for channel in server.channels:
                         for tag in set.allowprefix:
                             if tag in channel.name:
@@ -145,7 +145,7 @@ async def on_message(message):
                                 if dtat:
                                     if not server.id in a:
                                         try:
-                                            await app.send_message(channel, notice)
+                                            await client.send_message(channel, notice)
                                         except discord.HTTPException:
                                             e.append(str(channel.id))
                                             ec[channel.id] = "HTTPException"
@@ -162,12 +162,12 @@ async def on_message(message):
                                             a.append(str(server.id))
                                             b.append(str(channel.id))
                 asdf = "```\n"
-                for server in app.servers:
+                for server in client.servers:
                     if not server.id in a:
                         if set.nfct:
                             try:
-                                ch = await app.create_channel(server, set.nfctname)
-                                await app.send_message(ch, notice)
+                                ch = await client.create_channel(server, set.nfctname)
+                                await client.send_message(ch, notice)
                             except:
                                 asdf = asdf + str(server.name) + "[채널 생성 실패]\n"
                             else:
@@ -180,11 +180,11 @@ async def on_message(message):
                 bs = "```\n"
                 es = "```\n"
                 for bf in b:
-                    bn = app.get_channel(bf).name
+                    bn = client.get_channel(bf).name
                     bs = bs + str(bn) + "\n"
                 for ef in e:
-                    en = app.get_channel(ef).name
-                    es = es + str(app.get_channel(ef).server.name) + "(#" + str(en) + ") : " + ec[ef] + "\n"
+                    en = client.get_channel(ef).name
+                    es = es + str(client.get_channel(ef).server.name) + "(#" + str(en) + ") : " + ec[ef] + "\n"
                 bs = bs + "```"
                 es = es + "```"
                 if bs == "``````":
@@ -199,9 +199,9 @@ async def on_message(message):
                 embed.add_field(name="공지 발신 성공 채널:", value=sucess, inline=True)
                 embed.add_field(name="공지 발신 실패 채널:", value=missing, inline=True)
                 embed.add_field(name="공지 채널 없는 서버:", value=notfound, inline=True)
-                await app.edit_message(mssg, embed=embed)
+                await client.edit_message(mssg, embed=embed)
             else:
-               await app.send_message(message.channel, "봇 제작자만 사용할수 있는 커맨드입니다!")    
+               await client.send_message(message.channel, "봇 제작자만 사용할수 있는 커맨드입니다!")    
 
 
 
@@ -209,15 +209,15 @@ from itertools import cycle
         
 status = ['WaterBot v1.0', '주식기능 개발중!' , '꼬우면 oAsIcS#5074로 DMㄱㄱ', 'JS + Python 버전', '~도움 입력 가즈아ㅏㅏ']
 async def change_status():
-	await app.wait_until_ready()
+	await client.wait_until_ready()
 	msgelel = cycle(status)
 
-	while not app.is_closed:
+	while not client.is_closed:
 		current_status = next(msgelel)
-		await app.change_presence(game=discord.Game(name=current_status))
+		await client.change_presence(game=discord.Game(name=current_status))
 		await asyncio.sleep(3)
 		
-app.loop.create_task(change_status())
+client.loop.create_task(change_status())
 
 
 access_token = os.getenv('BOT_TOKEN')
