@@ -120,7 +120,7 @@ async def on_message(message):
             )
             await client.send_message(message.channel,embed=embed)
 
-app = discord.client()
+app = discord.Client()
 	
 @app.event
 async def on_message(message):
