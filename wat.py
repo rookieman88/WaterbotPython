@@ -144,6 +144,7 @@ import youtube_dl
 from discord.ext import commands
 from discord.utils import find
 import requests as rq
+from discord import opus
 
 def get_prefix(bot, msg):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
