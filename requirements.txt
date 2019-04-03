@@ -13,3 +13,5 @@ urlopen==1.0.0
 selenium==3.141.0
 html5==0.0.9
 html5lib==1.0.1
+youtube-dl
+PyNaCl
