@@ -153,25 +153,6 @@ async def queue_songs(con, skip, clear):
 async def after_song(con, skip, clear):
     bot.loop.create_task(queue_songs(con, skip, clear))
 
-
-
-set = setting.set()
-client = discord.Client()
-times = int(time.time())
-afk = []
-warn = {}
-party = 'off'
-@client.event
-async def on_ready():
-     print('온라인(관리)')
-     print(client.user.name)
-     print('======')
-     
-	
-	
-	
-	
-	
 @bot.command(pass_context=True)
 async def 플레이(con, *, url):
     """알 수 없는 오류가 발생했습니다... oAsIcS#5574 로 알려주세요"""
@@ -240,6 +221,25 @@ async def 저리가(con):
         if bot.is_voice_connected(con.message.server) == True:
             bot.loop.create_task(queue_songs(con, False, True))
             await bot.send_message(con.message.channel, "ㅠㅠ 나감..")
+
+
+set = setting.set()
+client = discord.Client()
+times = int(time.time())
+afk = []
+warn = {}
+party = 'off'
+@client.event
+async def on_ready():
+     print('온라인(관리)')
+     print(client.user.name)
+     print('======')
+     
+	
+	
+	
+	
+	
 
 
 @client.event
