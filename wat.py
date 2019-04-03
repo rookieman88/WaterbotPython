@@ -312,40 +312,6 @@ async def 스킵(con):
             await bot.send_message(con.message.channel, "**스킵할 노래가 없는데요**")
         if servers_songs[con.message.server.id] != None:
             bot.loop.create_task(queue_songs(con, True, False))
-
-
-@bot.command(pass_context=True)
-async def 들어와(con, *, channel=None):
-    """알수 없는 오류가 발생했습니다.. oAsIcS#5574 로 오류를 알려주세요"""
-
-    # COMMAND IS IN DM
-    if con.message.channel.is_private == True:
-        await bot.send_message(con.message.channel, "**서버에서만 가능하다고! DM 은 안되..**")
-
-    # COMMAND NOT IN DM
-    if con.message.channel.is_private == False:
-        voice_status = bot.is_voice_connected(con.message.server)
-
-        voice = find(lambda m: m.name == channel, con.message.server.channels)
-
-        if voice_status == False and channel == None:  # VOICE NOT CONNECTED
-            if con.message.author.voice_channel == None:
-                await bot.send_message(con.message.channel, "**거기에 들어갈수 있는 권한이 없어!**")
-            if con.message.author.voice_channel != None:
-                await bot.join_voice_channel(con.message.author.voice.voice_channel)
-
-        if voice_status == False and channel != None:  # PICKING A VOICE CHANNEL
-            await bot.join_voice_channel(voice)
-            await bot.send_message(con.message.channel, "들어감!")
-
-        if voice_status == True:  # VOICE ALREADY CONNECTED
-            if voice == None:
-                await bot.send_message(con.message.channel, "**이미 다른 채널에 있어..**")
-
-            if voice != None:
-                if voice.type == discord.ChannelType.voice:
-                    await bot.voice_client_in(con.message.server).move_to(voice)
-
                     
 
 @bot.command(pass_context=True)
@@ -368,44 +334,6 @@ async def 저리가(con):
             await bot.send_message(con.message.channel, "ㅠㅠ 나감..")
 
 
-@bot.command(pass_context=True)
-async def 일시정지(con):
-    # COMMAND IS IN DM
-    if con.message.channel.is_private == True:
-        await bot.send_message(con.message.channel, "**서버에서만 가능하다고! DM 은 안되..**")
-
-    # COMMAND NOT IN DM
-    if con.message.channel.is_private == False:
-        if servers_songs[con.message.server.id] != None:
-            if paused[con.message.server.id] == True:
-                await bot.send_message(con.message.channel, "**쀍 음악 일시중지;;**")
-            if paused[con.message.server.id] == False:
-                servers_songs[con.message.server.id].pause()
-                paused[con.message.server.id] = True
-
-
-@bot.command(pass_context=True)
-async def 재생(con):
-    # COMMAND IS IN DM
-    if con.message.channel.is_private == True:
-        await bot.send_message(con.message.channel, "**음악 채널에 먼저 들어가시죠...**")
-
-    # COMMAND NOT IN DM
-    if con.message.channel.is_private == False:
-        if servers_songs[con.message.server.id] != None:
-            if paused[con.message.server.id] == False:
-                await bot.send_message(con.message.channel, "**음악이 이미 틀어져 있다고!**")
-            if paused[con.message.server.id] == True:
-                servers_songs[con.message.server.id].resume()
-                paused[con.message.server.id] = False
-
-
-@bot.command(pass_context=True)
-async def 볼륨(con, vol: float):
-    if player_status[con.message.server.id] == False:
-        await bot.send_message(con.message.channel, "아무 음악도 안틀어져있잖아..")
-    if player_status[con.message.server.id] == True:
-servers_songs[con.message.server.id].volume = vol
 
 access_token = os.getenv('BOT_TOKEN')
 client.run(access_token)
