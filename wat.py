@@ -132,12 +132,13 @@ async def on_message(message):
          embed = discord.Embed(title='문의전송안내',description='문의내용:'+learn+'\n 혹시 잘못전송되었으면 "취소합니다."라고 다시 문의를 보내주세요.',color=0x00ff00)
          await client.send_message(channel,embed=embed)
          embed = discord.Embed(title='문의 수신',description='문의전송안내'+'아이디:'+id+'이름:'+message.author.name+'\n 내용:'+learn,color=0x00ff00)
-	 channel1 = discord.utils.get(client.get_all_members(),id=learn[1])
+	 channel1 = discord.utils.get(client.get_all_members(),id=417571990820618250)
          await client.send_message(channel1,embed=embed)
+	
      if message.content.startswith('~답변'):
         learn = message.content.replace('~답변', "")
         embed = discord.Embed(title='문의답변',description='답변이 왔습니다. \n 내용:'+learn[2],color=0x00ff00)
-        member = discord.utils.get(client.get_all_members(),id=417571990820618250)
+        member = discord.utils.get(client.get_all_members(),id=learn[1])
         await client.send_message(member,embed=embed)
 await client.send_message(channel,':white_check_mark:')
 
