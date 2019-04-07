@@ -140,7 +140,7 @@ async def on_message(message):
         embed = discord.Embed(title='문의답변',description='답변이 왔습니다. \n 내용:'+learn[2],color=0x00ff00)
         member = discord.utils.get(client.get_all_members(),id=learn[1])
         await client.send_message(member,embed=embed)
-await client.send_message(channel,':white_check_mark:')
+        await client.send_message(channel,':white_check_mark:')
 
      if message.content.startswith('~궁합'):
           try:
@@ -151,7 +151,7 @@ await client.send_message(channel,':white_check_mark:')
              embed = discord.Embed(title="재미로 보는 궁합!",description=a,color=0x00ff00)
              await client.send_message(channel,embed=embed)
           except:
-await client.send_message(channel,'~궁합 <멘션> <멘션> 이렇게 해주세요!')
+               await client.send_message(channel,'~궁합 <멘션> <멘션> 이렇게 해주세요!')
 
 
 
