@@ -105,7 +105,7 @@ async def on_message(message):
             
 
      if '~번역' in message.content:
-        learn = message.content.split(" ")
+        learn = message.content.replace('~번역', "")
         client_id = "cMk952QL7RsmQsctxHYP"
         client_secret = "fvfG3a6Q_c"
         encText = learn[1]
@@ -122,11 +122,35 @@ async def on_message(message):
         if response.status_code == 200:
             response_body = response.json()
             embed = discord.Embed(
-                title='한글->영어 번역결과',
+                title='한글 -> 영어 번역결과',
                 description=response_body[u'message'][u'result'][u'translatedText'],
                 colour=discord.Colour.green()
             )
             await client.send_message(message.channel,embed=embed)
+     if message.content.startswith('~문의'):
+         learn = message.content.replace('~문의', "")
+         embed = discord.Embed(title='문의전송안내',description='문의내용:'+learn+'\n 혹시 잘못전송되었으면 "취소합니다."라고 다시 문의를 보내주세요.',color=0x00ff00)
+         await client.send_message(channel,embed=embed)
+         embed = discord.Embed(title='문의 수신',description='문의전송안내'+'아이디:'+id+'이름:'+message.author.name+'\n 내용:'+learn,color=0x00ff00)
+	 channel1 = discord.utils.get(client.get_all_members(),id=learn[1])
+         await client.send_message(channel1,embed=embed)
+     if message.content.startswith('~답변'):
+        learn = message.content.replace('~답변', "")
+        embed = discord.Embed(title='문의답변',description='답변이 왔습니다. \n 내용:'+learn[2],color=0x00ff00)
+        member = discord.utils.get(client.get_all_members(),id=417571990820618250)
+        await client.send_message(member,embed=embed)
+await client.send_message(channel,':white_check_mark:')
+
+     if message.content.startswith('~궁합'):
+          try:
+             learn = message.content.split(' ')
+             learn.remove('~궁합')
+             a = str(random.randint(1,100))
+             a = learn[0]+'님과'+learn[1]+'님의 궁합은'+a+ '%입니다!'
+             embed = discord.Embed(title="재미로 보는 궁합!",description=a,color=0x00ff00)
+             await client.send_message(channel,embed=embed)
+          except:
+await client.send_message(channel,'~궁합 <멘션> <멘션> 이렇게 해주세요!')
 
 
 
