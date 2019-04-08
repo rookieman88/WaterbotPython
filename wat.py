@@ -118,11 +118,11 @@ async def on_message(message):
                await client.send_message(message.channel,'~궁합 <멘션> <멘션> 이렇게 해주세요!')
 
 	
-from discord.ext import commands	
+
 	
 
 
-    if '~번역' in message.content:
+      if '~번역' in message.content:
 	
         arg = message.content.split(" ")
 	
