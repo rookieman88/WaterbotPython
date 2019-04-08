@@ -104,12 +104,30 @@ async def on_message(message):
            await client.send_message(message.channel,'없는 도시입니다!')
             
 
-     if '~번역' in message.content:
-        learn = message.content.split(" ")
-        learn.remove('~번역')
+ 
+
+     if message.content.startswith('~궁합'):
+          try:
+             learn = message.content.split(' ')
+             learn.remove('~궁합')
+             a = str(random.randint(1,100))
+             a = learn[0]+'님과'+learn[1]+'님의 궁합은'+a+ '%입니다!'
+             embed = discord.Embed(title="재미로 보는 궁합!",description=a,color=0x00ff00)
+             await client.send_message(message.channel,embed=embed)
+          except:
+               await client.send_message(message.channel,'~궁합 <멘션> <멘션> 이렇게 해주세요!')
+
+bot = commands.Bot(command_prefix='~')
+
+
+@bot.command()
+async def 번역(message, arg):
+
+    if '~번역' in message.content:
+	
         client_id = "cMk952QL7RsmQsctxHYP"
         client_secret = "fvfG3a6Q_c"
-        encText = learn[1]
+        encText = arg
         url = "https://openapi.naver.com/v1/papago/n2mt"
 
         headers = {"X-Naver-Client-Id" :client_id,
@@ -128,20 +146,6 @@ async def on_message(message):
                 colour=discord.Colour.green()
             )
             await client.send_message(message.channel,embed=embed)
-
-     if message.content.startswith('~궁합'):
-          try:
-             learn = message.content.split(' ')
-             learn.remove('~궁합')
-             a = str(random.randint(1,100))
-             a = learn[0]+'님과'+learn[1]+'님의 궁합은'+a+ '%입니다!'
-             embed = discord.Embed(title="재미로 보는 궁합!",description=a,color=0x00ff00)
-             await client.send_message(message.channel,embed=embed)
-          except:
-               await client.send_message(message.channel,'~궁합 <멘션> <멘션> 이렇게 해주세요!')
-
-
-
 
 
 from itertools import cycle
