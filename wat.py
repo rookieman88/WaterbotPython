@@ -128,7 +128,7 @@ async def on_message(message):
 	
         client_id = "cMk952QL7RsmQsctxHYP"
         client_secret = "fvfG3a6Q_c"
-        encText = arg
+        encText = arg[1]
         url = "https://openapi.naver.com/v1/papago/n2mt"
 
         headers = {"X-Naver-Client-Id" :client_id,
