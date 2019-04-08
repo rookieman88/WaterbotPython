@@ -105,7 +105,7 @@ async def on_message(message):
             
 
      if '~번역' in message.content:
-        learn = message.content.split(' ')
+        learn = message.content.split(" ")
         learn.remove('~번역')
         client_id = "cMk952QL7RsmQsctxHYP"
         client_secret = "fvfG3a6Q_c"
