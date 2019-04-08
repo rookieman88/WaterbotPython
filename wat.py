@@ -135,9 +135,9 @@ async def on_message(message):
              a = str(random.randint(1,100))
              a = learn[0]+'님과'+learn[1]+'님의 궁합은'+a+ '%입니다!'
              embed = discord.Embed(title="재미로 보는 궁합!",description=a,color=0x00ff00)
-             await client.send_message(channel,embed=embed)
+             await client.send_message(message.channel,embed=embed)
           except:
-               await client.send_message(channel,'~궁합 <멘션> <멘션> 이렇게 해주세요!')
+               await client.send_message(message.channel,'~궁합 <멘션> <멘션> 이렇게 해주세요!')
 
 
 
