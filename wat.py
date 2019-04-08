@@ -122,7 +122,7 @@ async def on_message(message):
 	
 
 
-      if '~번역' in message.content:
+     if message.content.startswith('~번역'):
 	
         arg = message.content.split(" ")
 	
