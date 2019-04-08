@@ -120,13 +120,11 @@ async def on_message(message):
 	
 from discord.ext import commands	
 	
-bot = commands.Bot(command_prefix='~')
 
-
-@bot.command()
-async def 번역(message, arg):
 
     if '~번역' in message.content:
+	
+        arg = message.content.split(" ")
 	
         client_id = "cMk952QL7RsmQsctxHYP"
         client_secret = "fvfG3a6Q_c"
