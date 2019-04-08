@@ -117,6 +117,9 @@ async def on_message(message):
           except:
                await client.send_message(message.channel,'~궁합 <멘션> <멘션> 이렇게 해주세요!')
 
+	
+from discord.ext import commands	
+	
 bot = commands.Bot(command_prefix='~')
 
 
