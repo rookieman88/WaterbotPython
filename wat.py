@@ -111,7 +111,7 @@ async def on_message(message):
              learn = message.content.split(' ')
              learn.remove('~궁합')
              a = str(random.randint(1,100))
-             a = learn[0]+'님과'+learn[1]+'님의 궁합은'+a+ '%입니다!'
+             a = learn[0]+' 님과'+learn[1]+' 님의 궁합은'+a+ '%입니다!'
              embed = discord.Embed(title="재미로 보는 궁합!",description=a,color=0x00ff00)
              await client.send_message(message.channel,embed=embed)
           except:
@@ -120,48 +120,47 @@ async def on_message(message):
 	
 
 	
+    if message.content.startswith('~영어로'):
+        learn = message.content.split(" ")
+        Text = ""
 
+        client_id = ""
+        client_secret = ""
 
-     if message.content.startswith('~번역'):
-	
-        arg = message.content.split(" ")
-	
-        client_id = "cMk952QL7RsmQsctxHYP"
-        client_secret = "fvfG3a6Q_c"
-        encText = arg[1]
         url = "https://openapi.naver.com/v1/papago/n2mt"
+        print(len(learn))
+        vrsize = len(learn)  # 배열크기
+        vrsize = int(vrsize)
+        for i in range(1, vrsize): #띄어쓰기 한 텍스트들 인식함
+            Text = Text+" "+learn[i]
+        encText = urllib.parse.quote(Text)
+        data = "source=ko&target=en&text=" + encText
 
-        headers = {"X-Naver-Client-Id" :client_id,
-                "X-Naver-Client-Secret":client_secret}
+        request = urllib.request.Request(url)
+        request.add_header("X-Naver-Client-Id", client_id)
+        request.add_header("X-Naver-Client-Secret", client_secret)
 
-        params = (("source", "ko"),
-                ("target", "en"),
-                ("text", encText))
+        response = urllib.request.urlopen(request, data=data.encode("utf-8"))
 
-        response = requests.post(url, data=params, headers=headers)
-        if response.status_code == 200:
-            response_body = response.json()
-            embed = discord.Embed(
-                title='한글 -> 영어 번역결과',
-                description=response_body[u'message'][u'result'][u'translatedText'],
-                colour=discord.Colour.green()
-            )
-            await client.send_message(message.channel,embed=embed)
+        rescode = response.getcode()
+        if (rescode == 200):
+            response_body = response.read()
+            data = response_body.decode('utf-8')
+            data = json.loads(data)
+            tranText = data['message']['result']['translatedText']
+        else:
+            print("Error Code:" + rescode)
+
+        print('번역된 내용 :', tranText)
+
+        embed = discord.Embed(
+            title='번역기 (영어)',
+            description=tranText,
+            colour=discord.Colour.green()
+        )
+         await client.send_message(message.channel,embed=embed)
 
 
-from itertools import cycle
-        
-status = ['WaterBot v1.0', '주식기능 개발중!' , '꼬우면 oAsIcS#5074로 DMㄱㄱ', 'JS + Python 버전', '~도움 입력 가즈아ㅏㅏ']
-async def change_status():
-	await client.wait_until_ready()
-	msgelel = cycle(status)
-
-	while not client.is_closed:
-		current_status = next(msgelel)
-		await client.change_presence(game=discord.Game(name=current_status))
-		await asyncio.sleep(3)
-		
-client.loop.create_task(change_status())
 
 
 
