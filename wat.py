@@ -108,9 +108,7 @@ async def on_message(message):
           except:
                await client.send_message(message.channel,'~궁합 <멘션> <멘션> 이렇게 해주세요!')
 
-	
 
-	
        if message.content.startswith('~영어로'):
            learn = message.content.split(" ")
            Text = ""
