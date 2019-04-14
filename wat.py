@@ -325,4 +325,4 @@ async def on_message(message):
 
 thetokeen = os.getenv('BOT_TOKEN')
 
-client.run('thetokeen')
+client.run(thetokeen)
