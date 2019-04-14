@@ -15,6 +15,7 @@ import json
 from selenium import webdriver
 import time
 import datetime
+import requests
 
 countG = 0
 client = discord.Client()
