@@ -227,10 +227,9 @@ async def on_message(message):
         else:
             print("땡")
             await client.edit_message(timer, embed=discord.Embed(description='타이머 종료'))
-            
-owner = ['417571990820618250']
 
     if "~공지" in message.content:
+        owner = ['417571990820618250']
        if message.author.id == owner:
                         # DPNK 사용 구문 시점
            embed=discord.Embed(title="워터봇 전체공지 시스템", color=Setting.embed_color)
