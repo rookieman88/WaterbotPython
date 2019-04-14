@@ -220,7 +220,6 @@ async def on_message(message):
         timer = await client.send_message(message.channel, embed=discord.Embed(description='타이머 작동중 : 타이머 시작'))
 
         for i in range(sec, 0, -1):
-            print(i)
             await client.edit_message(timer, embed=discord.Embed(description='타이머 작동중 : '+str(i)+'초'))
             time.sleep(1)
 
