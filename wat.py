@@ -272,7 +272,7 @@ async def on_message(message):
             moviechartLi1Yerating = moviechartLi1Yerating1.text.strip()  # 예매율 ,랭킹변동
             print(moviechartLi1Yerating)  # ------------------------- 1등랭킹 영화---------------------------
             print()
-            embed.add_field(name='---------------랭킹'+stri1+'위---------------', value='\n영화제목 : '+moviechartLi1MovieName+'\n영화평점 : '+moviechartLi1Ratting+'점'+'\n개봉날짜 : '+moviechartLi1openDay+'\n예매율,랭킹변동 : '+moviechartLi1Yerating, inline=False) # 영화랭킹
+            embed.add_field(name='---------------랭킹'+stri1+'위---------------', value='\n영화제목 : '+moviechartLi1MovieName+'\n영화평점 : '+moviechartLi1Ratting+'점'+moviechartLi1Yerating, inline=False) # 영화랭킹
 
 
         await client.send_message(message.channel, embed=embed)
