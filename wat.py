@@ -231,14 +231,14 @@ async def on_message(message):
     if "~공지" in message.content:
        if message.author.id == '417571990820618250':
                         # DPNK 사용 구문 시점
-           embed=discord.Embed(title="워터봇 전체공지 시스템", color=Setting.embed_color)
+           embed=discord.Embed(title="워터봇 전체공지 시스템")
            embed.add_field(name="공지 발신을 준비하고 있습니다!", value="요청자 : <@" + message.author.id + ">", inline=True)
            mssg = await app.send_message(message.channel, embed=embed)
            a = []
            b = []
            e = []
            ec = {}
-           embed=discord.Embed(title="워터봇 전체공지 시스템", color=Setting.embed_color)
+           embed=discord.Embed(title="워터봇 전체공지 시스템")
            embed.add_field(name="공지 발신중 입니다!", value="요청자 : <@" + message.author.id + ">", inline=True)
            await app.edit_message(mssg, embed=embed)
            for server in app.servers:
@@ -279,7 +279,7 @@ async def on_message(message):
                    else:
                        asdf = asdf + str(server.name) + "[채널 생성 및 재발송에 성공하였습니다.]\n"
            asdf = asdf + "```"
-           embed=discord.Embed(title="워터봇 전체공지 시스템", color=Setting.embed_color)
+           embed=discord.Embed(title="워터봇 전체공지 시스템")
            embed.add_field(name="공지 발신이 완료되었습니다!", value="요청자 : <@" + message.author.id + ">", inline=True)
            bs = "```\n"
            es = "```\n"
