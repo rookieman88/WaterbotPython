@@ -230,8 +230,7 @@ async def on_message(message):
 
     if "워터봇 공지" in message.content:
        if message.author.id == '417571990820618250':
-            notice = message.content.replace("워터봇 공지", "")
-                        # DPNK 사용 구문 시점
+           notice = message.content.replace("워터봇 공지", "")
            embed=discord.Embed(title="워터봇 전체공지 시스템")
            embed.add_field(name="공지 발신을 준비하고 있습니다!", value="요청자 : <@" + message.author.id + ">", inline=True)
            mssg = await client.send_message(message.channel, embed=embed)
