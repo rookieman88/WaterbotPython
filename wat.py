@@ -228,7 +228,7 @@ async def on_message(message):
             print("땡")
             await client.edit_message(timer, embed=discord.Embed(description='타이머 종료'))
 
-    if "~공지" in message.content:
+    if "워터봇 공지" in message.content:
        if message.author.id == '417571990820618250':
                         # DPNK 사용 구문 시점
            embed=discord.Embed(title="워터봇 전체공지 시스템")
@@ -243,7 +243,7 @@ async def on_message(message):
            await client.edit_message(mssg, embed=embed)
            for server in client.servers:
                for channel in server.channels:
-                   for tag in ["notice", "공지", "알림", "Alarm"]:
+                   for tag in ["워터봇-공지","notice", "공지", "알림", "Alarm"]:
                        if tag in channel.name:
                            dtat = True
                            for distag in ["밴", "경고", "제재", "길드", "ban", "worry", "warn", "guild"]:
