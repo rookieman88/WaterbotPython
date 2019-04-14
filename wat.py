@@ -162,141 +162,6 @@ async def on_message(message):
         await client.send_message(message.channel,embed=embed)
 
 
-    if message.content.startswith('~플레이'):
-        Text = ""
-        learn = message.content.split(" ")
-        vrsize = len(learn)  # 배열크기
-        vrsize = int(vrsize)
-        for i in range(1, vrsize):  # 띄어쓰기 한 텍스트들 인식함
-            Text = Text + " " + learn[i]
-        encText = Text
-
-        chromedriver_dir = r'C:\selum\chromedriver_win32\chromedriver.exe' #크롬드라이버 경로
-        driver = webdriver.Chrome(chromedriver_dir)
-        driver.get('https://www.youtube.com/results?search_query='+encText) #유튜브 검색링크
-        source = driver.page_source
-        bs = bs4.BeautifulSoup(source, 'lxml')
-        entire = bs.find_all('a', {'id': 'video-title'}) # a태그에서 video title 이라는 id를 찾음
-
-        embed = discord.Embed(
-            title="영상들!",
-            description="검색한 영상 결과",
-            colour=discord.Color.blue())
-
-        for i in range(0, 5):
-            entireNum = entire[i]
-            entireText = entireNum.text.strip()  # 영상제목
-            print(entireText)
-            test1 = entireNum.get('href')  # 하이퍼링크
-            print(test1)
-            rink = 'https://www.youtube.com'+test1
-           # embed.add_field(name=str(i+1)+'번째 영상',value=entireText + '\n링크 : '+rink)
-            embed.add_field(name=str(i + 1) + '번째 영상', value='\n' + '[%s](<%s>)' % (entireText, rink),
-                            inline=False)  # [텍스트](<링크>) 형식으로 적으면 텍스트 하이퍼링크 만들어집니다
-            searchYoutubeHref[i] = rink
-        await client.send_message(message.channel,embed=embed)
-
-    if message.content.startswith('1'):
-
-        if not searchYoutubeHref: #저장된 하이퍼링크가 없다면
-            print('searchYoutubeHref 안에 값이 존재하지 않습니다.')
-            await client.send_message(message.channel, embed=discord.Embed(description="검색한 영상이 없습니다."))
-        else:
-            print(searchYoutubeHref[0])
-            server = message.server
-            voice_client = client.voice_client_in(server)
-            url = searchYoutubeHref[0]
-            player = await voice_client.create_ytdl_player(url, after=lambda: check_queue(server.id))
-            print(player.is_playing())
-            players[server.id] = player
-            await client.send_message(message.channel, embed=discord.Embed(description="재생한다!!!!"))
-            print(player.is_playing())
-            player.start()
-
-            for i in range(0,5):
-                del searchYoutubeHref[i]
-
-    if message.content.startswith('2'):
-
-        if not searchYoutubeHref:
-            print('searchYoutubeHref 안에 값이 존재하지 않습니다.')
-            await client.send_message(message.channel, embed=discord.Embed(description="검색한 영상이 없습니다."))
-        else:
-            print(searchYoutubeHref[1])
-            server = message.server
-            voice_client = client.voice_client_in(server)
-            url = searchYoutubeHref[1]
-            player = await voice_client.create_ytdl_player(url, after=lambda: check_queue(server.id))
-            print(player.is_playing())
-            players[server.id] = player
-            await client.send_message(message.channel, embed=discord.Embed(description="재생한다!!!!"))
-            print(player.is_playing())
-            player.start()
-
-            for i in range(0,5):
-                del searchYoutubeHref[i]
-
-    if message.content.startswith('3'):
-
-        if not searchYoutubeHref:
-            print('searchYoutubeHref 안에 값이 존재하지 않습니다.')
-            await client.send_message(message.channel, embed=discord.Embed(description="검색한 영상이 없습니다."))
-        else:
-            print(searchYoutubeHref[2])
-            server = message.server
-            voice_client = client.voice_client_in(server)
-            url = searchYoutubeHref[2]
-            player = await voice_client.create_ytdl_player(url, after=lambda: check_queue(server.id))
-            print(player.is_playing())
-            players[server.id] = player
-            await client.send_message(message.channel, embed=discord.Embed(description="재생한다!!!!"))
-            print(player.is_playing())
-            player.start()
-
-            for i in range(0,5):
-                del searchYoutubeHref[i]
-
-    if message.content.startswith('4'):
-
-        if not searchYoutubeHref:
-            print('searchYoutubeHref 안에 값이 존재하지 않습니다.')
-            await client.send_message(message.channel, embed=discord.Embed(description="검색한 영상이 없습니다."))
-        else:
-            print(searchYoutubeHref[3])
-            server = message.server
-            voice_client = client.voice_client_in(server)
-            url = searchYoutubeHref[3]
-            player = await voice_client.create_ytdl_player(url, after=lambda: check_queue(server.id))
-            print(player.is_playing())
-            players[server.id] = player
-            await client.send_message(message.channel, embed=discord.Embed(description="재생한다!!!!"))
-            print(player.is_playing())
-            player.start()
-
-            for i in range(0,5):
-                del searchYoutubeHref[i]
-
-    if message.content.startswith('5'):
-
-        if not searchYoutubeHref:
-            print('searchYoutubeHref 안에 값이 존재하지 않습니다.')
-            await client.send_message(message.channel, embed=discord.Embed(description="검색한 영상이 없습니다."))
-        else:
-            print(searchYoutubeHref[4])
-            server = message.server
-            voice_client = client.voice_client_in(server)
-            url = searchYoutubeHref[4]
-            player = await voice_client.create_ytdl_player(url, after=lambda: check_queue(server.id))
-            print(player.is_playing())
-            players[server.id] = player
-            await client.send_message(message.channel, embed=discord.Embed(description="재생한다!!!!"))
-            print(player.is_playing())
-            player.start()
-
-            for i in range(0,5):
-                del searchYoutubeHref[i]
-
-
 
     if message.content.startswith('!타이머'):
 
@@ -309,10 +174,11 @@ async def on_message(message):
 
         secint = int(Text)
         sec = secint
+        timer = await client.send_message(message.channel, embed=discord.Embed(description='타이머 작동중 : 타이머 시작'))
 
         for i in range(sec, 0, -1):
             print(i)
-            await client.send_message(message.channel, embed=discord.Embed(description='타이머 작동중 : '+str(i)+'초'))
+            await client.edit_message(timer, embed=discord.Embed(description='타이머 작동중 : '+str(i)+'초'))
             time.sleep(1)
 
         else:
