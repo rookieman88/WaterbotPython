@@ -230,6 +230,7 @@ async def on_message(message):
 
     if "워터봇 공지" in message.content:
        if message.author.id == '417571990820618250':
+         notice = message.content.replace(s, "")
                         # DPNK 사용 구문 시점
            embed=discord.Embed(title="워터봇 전체공지 시스템")
            embed.add_field(name="공지 발신을 준비하고 있습니다!", value="요청자 : <@" + message.author.id + ">", inline=True)
@@ -252,7 +253,7 @@ async def on_message(message):
                            if dtat:
                                if not server.id in a:
                                    try:
-                                       await client.send_message(channel, message.content)
+                                       await client.send_message(channel, notice)
                                    except discord.HTTPException:
                                        e.append(str(channel.id))
                                        ec[channel.id] = "HTTPException"
@@ -273,7 +274,7 @@ async def on_message(message):
                if not server.id in a:
                    try:
                        ch = await client.create_channel(server, "워터봇-공지")
-                       await client.send_message(ch, message.content)
+                       await client.send_message(ch, notice)
                    except:
                        asdf = asdf + str(server.name) + "[채널 생성에 실패하였습니다. (서버 관리자와 연락 요망)]\n"
                    else:
