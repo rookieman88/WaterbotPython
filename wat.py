@@ -121,11 +121,15 @@ async def on_message(message):
 
         await client.send_message(message.channel,embed=embed)
 
-
     if message.content.startswith('~영어로'):
         learn = message.content.split(" ")
         Text = ""
 
+        client_id = "cMk952QL7RsmQsctxHYP"
+        client_secret = "fvfG3a6Q_c"
+
+        url = "https://openapi.naver.com/v1/papago/n2mt"
+        print(len(learn))
         vrsize = len(learn)  # 배열크기
         vrsize = int(vrsize)
         for i in range(1, vrsize): #띄어쓰기 한 텍스트들 인식함
@@ -133,26 +137,31 @@ async def on_message(message):
         encText = urllib.parse.quote(Text)
         data = "source=ko&target=en&text=" + encText
 
-        client_id = "cMk952QL7RsmQsctxHYP"
-        client_secret = "fvfG3a6Q_c"
-        url = "https://openapi.naver.com/v1/papago/n2mt"
+        request = urllib.request.Request(url)
+        request.add_header("X-Naver-Client-Id", client_id)
+        request.add_header("X-Naver-Client-Secret", client_secret)
 
-        headers = {"X-Naver-Client-Id" :client_id,
-                "X-Naver-Client-Secret":client_secret}
+        response = urllib.request.urlopen(request, data=data.encode("utf-8"))
 
-        params = (("source", "ko"),
-                ("target", "en"),
-                ("text", encText))
+        rescode = response.getcode()
+        if (rescode == 200):
+            response_body = response.read()
+            data = response_body.decode('utf-8')
+            data = json.loads(data)
+            tranText = data['message']['result']['translatedText']
+        else:
+            print("Error Code:" + rescode)
 
-        response = requests.post(url, data=params, headers=headers)
-        if response.status_code == 200:
-            response_body = response.json()
-            embed = discord.Embed(
-                title='번역기 (영어)',
-                description=response_body[u'message'][u'result'][u'translatedText'],
-                colour=discord.Colour.green()
-            )
+        print('번역된 내용 :', tranText)
+
+        embed = discord.Embed(
+            title='번역기 (영어)',
+            description=tranText,
+            colour=discord.Colour.green()
+        )
         await client.send_message(message.channel,embed=embed)
+
+
 
 
 
