@@ -39,7 +39,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print("------------------")
-    owner = ['417571990820618250']
+    
 
 
 
@@ -227,6 +227,8 @@ async def on_message(message):
         else:
             print("땡")
             await client.edit_message(timer, embed=discord.Embed(description='타이머 종료'))
+            
+owner = ['417571990820618250']
 
     if "~공지" in message.content:
        if message.author.id == owner:
