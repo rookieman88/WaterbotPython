@@ -233,15 +233,15 @@ async def on_message(message):
                         # DPNK 사용 구문 시점
            embed=discord.Embed(title="워터봇 전체공지 시스템")
            embed.add_field(name="공지 발신을 준비하고 있습니다!", value="요청자 : <@" + message.author.id + ">", inline=True)
-           mssg = await app.send_message(message.channel, embed=embed)
+           mssg = await client.send_message(message.channel, embed=embed)
            a = []
            b = []
            e = []
            ec = {}
            embed=discord.Embed(title="워터봇 전체공지 시스템")
            embed.add_field(name="공지 발신중 입니다!", value="요청자 : <@" + message.author.id + ">", inline=True)
-           await app.edit_message(mssg, embed=embed)
-           for server in app.servers:
+           await client.edit_message(mssg, embed=embed)
+           for server in client.servers:
                for channel in server.channels:
                    for tag in ["notice", "공지", "알림", "Alarm"]:
                        if tag in channel.name:
@@ -252,7 +252,7 @@ async def on_message(message):
                            if dtat:
                                if not server.id in a:
                                    try:
-                                       await app.send_message(channel, message.content)
+                                       await client.send_message(channel, message.content)
                                    except discord.HTTPException:
                                        e.append(str(channel.id))
                                        ec[channel.id] = "HTTPException"
@@ -269,11 +269,11 @@ async def on_message(message):
                                        a.append(str(server.id))
                                        b.append(str(channel.id))
            asdf = "```\n"
-           for server in app.servers:
+           for server in client.servers:
                if not server.id in a:
                    try:
-                       ch = await app.create_channel(server, "워터봇-공지")
-                       await app.send_message(ch, message.content)
+                       ch = await client.create_channel(server, "워터봇-공지")
+                       await client.send_message(ch, message.content)
                    except:
                        asdf = asdf + str(server.name) + "[채널 생성에 실패하였습니다. (서버 관리자와 연락 요망)]\n"
                    else:
@@ -284,11 +284,11 @@ async def on_message(message):
            bs = "```\n"
            es = "```\n"
            for bf in b:
-               bn = app.get_channel(bf).name
+               bn = client.get_channel(bf).name
                bs = bs + str(bn) + "\n"
            for ef in e:
-               en = app.get_channel(ef).name
-               es = es + str(app.get_channel(ef).server.name) + "(#" + str(en) + ") : " + ec[ef] + "\n"
+               en = client.get_channel(ef).name
+               es = es + str(client.get_channel(ef).server.name) + "(#" + str(en) + ") : " + ec[ef] + "\n"
            bs = bs + "```"
            es = es + "```"
            if bs == "``````":
@@ -303,11 +303,11 @@ async def on_message(message):
            embed.add_field(name="공지 발신에 성공한 채널은 다음과 같습니다 :", value=sucess, inline=False)
            embed.add_field(name="공지 발신에 실패한 채널은 다음과 같습니다 :", value=missing, inline=False)
            embed.add_field(name="키워드가 발견되지 않은 서버는 다음과 같습니다 :", value=notfound, inline=False)
-           await app.edit_message(mssg, embed=embed)
+           await client.edit_message(mssg, embed=embed)
                     # DPNK 사용 구문 종점
            log_actvity("I send Notice for all Server. (content : %s\nSuccess : %s\nFail : %s\nNotfound : %s)." % (message.content, sucess, missing, notfound))
        else:
-           await app.send_message(message.channel, "<@%s>, 봇 관리자로 등록되어 있지 않습니다.")
+           await client.send_message(message.channel, "<@%s>, 봇 관리자로 등록되어 있지 않습니다.")
 
 
 
