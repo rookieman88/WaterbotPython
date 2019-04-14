@@ -151,7 +151,7 @@ async def on_message(message):
                 description=response_body[u'message'][u'result'][u'translatedText'],
                 colour=discord.Colour.green()
             )
-await client.send_message(message.channel,embed=embed)
+        await client.send_message(message.channel,embed=embed)
 
 
 
