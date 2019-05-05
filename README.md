@@ -1,9 +1,5 @@
 # WaterbotPython
-yeang
 
-
-oasics is god
-injung? ah injung.
-
-
-루탑봇 소스 출처 : https://github.com/Team-Hwagong/Rutap-bot_Discord/blob/master/rutap.py
+오아시스의 워터봇 파이썬 버전입니다.
+discord.py가 업데이트되면서 더이상 쓸수 없는 코드입니다
+수정할수 있으신분은 수정해서 쓰시면 됩니다
